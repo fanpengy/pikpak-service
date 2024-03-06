@@ -1,0 +1,5 @@
+Flask
+Gunicorn
+PyMySQL
+DBUtils
+python-dotenv

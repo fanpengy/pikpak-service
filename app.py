@@ -1,9 +1,11 @@
 from flask import Flask, request, make_response, jsonify
+from flask_cors import CORS
 from dotenv import load_dotenv
 import json
 load_dotenv()
 from utils.SQLHelper import sqlHelper
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/search', methods=['GET'])
 def search():
@@ -17,14 +19,7 @@ def search():
 def new_share():
     name = request.json.get("name")
     link = request.json.get("link")
-    print(name)
-    print(link)
     sql = 'insert into shares(dvd_id, share_link) values(%s, %s)'
     row_id = sqlHelper.insert(sql, name, link)
-    response = make_response(jsonify(row_id), {
-        'Access-Control-Allow-Origin':'*',
-        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Request-Headers': 'authorization'
-        })
+    response = make_response(jsonify(row_id))
     return response

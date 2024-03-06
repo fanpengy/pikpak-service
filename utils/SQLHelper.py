@@ -49,7 +49,7 @@ class SQLHelper:
         conn, cur = self.open()
         try:
             result = cur.execute(sql, args)
-            cur.commit()
+            conn.commit()
             return result
         finally:
             self.close(conn,cur)
@@ -58,7 +58,7 @@ class SQLHelper:
         conn, cur = self.open()
         try:
             cur.execute(sql, args)
-            cur.commit()
+            conn.commit()
             return cur.lastrowid
         finally:
             self.close(conn,cur)

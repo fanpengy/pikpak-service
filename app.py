@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, make_response, jsonify
 from dotenv import load_dotenv
 import json
 load_dotenv()
@@ -10,13 +10,15 @@ def search():
     id = request.args.get('id')
     sql = "select * from shares where dvd_id like '" + id + "%%'"
     result = sqlHelper.get_list(sql)
-    return json.dumps(result)
+    response = make_response(jsonify(result))
+    return response
 
 @app.route('/new_share', methods=['POST'])
 def new_share():
     name = request.json.get("name")
     link = request.json.get("link")
-
+    print(name)
+    print(link)
     sql = 'insert into shares(dvd_id, share_link) values(%s, %s)'
     row_id = sqlHelper.insert(sql, name, link)
-    return row_id
+    return make_response(jsonify(row_id))

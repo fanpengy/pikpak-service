@@ -21,4 +21,10 @@ def new_share():
     print(link)
     sql = 'insert into shares(dvd_id, share_link) values(%s, %s)'
     row_id = sqlHelper.insert(sql, name, link)
-    return make_response(jsonify(row_id))
+    response = make_response(jsonify(row_id), {
+        'Access-Control-Allow-Origin':'*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Request-Headers': 'authorization'
+        })
+    return response

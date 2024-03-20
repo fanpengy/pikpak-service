@@ -1,5 +1,6 @@
 Flask
 flask_cors
+flask_apscheduler
 Gunicorn
 PyMySQL
 DBUtils

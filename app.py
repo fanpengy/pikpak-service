@@ -1,11 +1,16 @@
 from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS
+from apscheduler.schedulers.background import BackgroundScheduler
 from dotenv import load_dotenv
 import json
 load_dotenv()
-from utils.SQLHelper import sqlHelper
+from utils.SQLHelper import sqlHelper, task_test
 app = Flask(__name__)
 CORS(app)
+scheduler = BackgroundScheduler()
+scheduler.add_job(task_test, 'interval', seconds=300)
+
+scheduler.start()
 
 @app.route('/search', methods=['GET'])
 def search():

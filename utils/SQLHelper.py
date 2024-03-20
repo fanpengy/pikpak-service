@@ -1,5 +1,6 @@
 import pymysql
 from dbutils.pooled_db import PooledDB
+from datetime import datetime
 import os
 class SQLHelper:
 
@@ -64,3 +65,7 @@ class SQLHelper:
             self.close(conn,cur)
     
 sqlHelper = SQLHelper()
+
+def task_test():
+    now = datetime.now()
+    print(f'task start at {now}')

@@ -5,3 +5,5 @@ Gunicorn
 PyMySQL
 DBUtils
 python-dotenv
+lxml
+cloudscraper

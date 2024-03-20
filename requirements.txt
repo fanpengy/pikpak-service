@@ -7,3 +7,4 @@ DBUtils
 python-dotenv
 lxml
 cloudscraper
+cssselect

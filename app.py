@@ -69,3 +69,38 @@ def test_danyu():
         return jsonify(page.cssselect(title_select)[0].text)
     else:
         return jsonify(resp.status_code)
+    
+
+@app.route('/db_test', methods=['GET'])
+def test_db():
+    id = request.args.get('id')
+    url = os.environ.get('archivement.content_id.url.db').format(dvd_id=id)
+    resp = client.get(url, timeout=10)
+    if resp.ok:
+        page = html.fromstring(html=resp.content, parser=PARSER)
+        table_select = os.environ.get('archivement.content.select.db.table')
+        tds = page.cssselect(table_select)
+        texts = list(map(lambda td: td.text_content(), tds))
+        index = -1
+        for i, text in enumerate(texts):
+            if text == 'Content ID:':
+                index = i
+                break
+        if index and index != -1 and len(texts) > index + 1 and texts[index + 1]:
+            return texts[index + 1]
+        else:
+            return 'haha'
+    else:
+        return jsonify(resp.status_code)
+    
+@app.route('/jm_test', methods=['GET'])
+def test_jm():
+    id = request.args.get('id')
+    url = os.environ.get('actress.content.url.jm').format(name=id)
+    resp = client.get(url, timeout=10)
+    if resp.ok:
+        page = html.fromstring(html=resp.content, parser=PARSER)
+        name_select = os.environ.get('actress.content.select.jm.name')
+        return jsonify(page.cssselect(name_select)[0].text)
+    else:
+        return jsonify(resp.status_code)

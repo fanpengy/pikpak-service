@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from urllib.parse import urljoin
 from lxml import html
 import json
-from utils.HttpUtils import client, r_client
+from utils.HttpUtils import client, r_client, EnvTest
 import os
 load_dotenv()
 from utils.SQLHelper import sqlHelper, task_test
@@ -104,3 +104,10 @@ def test_jm():
         return jsonify(page.cssselect(name_select)[0].text)
     else:
         return jsonify(resp.status_code)
+    
+@app.route('/env_test', methods=['GET'])
+def test_env():
+    prefix = os.environ.get('prefix')
+    postfix = EnvTest.postfix
+
+    return f'{prefix}.{postfix}'

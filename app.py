@@ -17,6 +17,10 @@ scheduler.add_job(task_test, 'interval', seconds=300)
 
 scheduler.start()
 
+@app.route('/health', methods=['GET'])
+def search():
+    return make_response('ok')
+
 @app.route('/search', methods=['GET'])
 def search():
     id = request.args.get('id')

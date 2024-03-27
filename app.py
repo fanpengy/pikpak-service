@@ -18,7 +18,7 @@ scheduler.add_job(task_test, 'interval', seconds=300)
 scheduler.start()
 
 @app.route('/health', methods=['GET'])
-def search():
+def health():
     return make_response('ok')
 
 @app.route('/search', methods=['GET'])
